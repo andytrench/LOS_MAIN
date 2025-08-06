@@ -5760,12 +5760,12 @@ map_frame.pack(fill="both", expand=True, padx=10, pady=5)
 map_header_frame = ttk.Frame(map_frame)
 map_header_frame.pack(fill="x", padx=5, pady=2)
 
-# Add "Import JSON" button in the header
+# Add "Import JSON" button in the header (left side for visibility)
 ttk.Button(
     map_header_frame,
     text="Import JSON",
     command=import_tower_parameters_json
-).pack(side="right", padx=5)
+).pack(side="left", padx=5)
 
 # Add "Edit Sites" button in the header (renamed from "Manual Sites")
 ttk.Button(
