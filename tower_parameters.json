@@ -1,0 +1,58 @@
+{
+  "site_A": {
+    "site_id": "TO01081D",
+    "latitude": "41-35-35.9 N",
+    "longitude": "83-48-57.6 W",
+    "elevation_ft": 675.85,
+    "antenna_cl_ft": 80.0,
+    "azimuth_deg": 197.9,
+    "adjusted_latitude": 41.59330555555556,
+    "adjusted_longitude": -83.816
+  },
+  "site_B": {
+    "site_id": "TO03614A",
+    "latitude": "41-30-50.5 N",
+    "longitude": "83-51-0.2 W",
+    "elevation_ft": 666.01,
+    "antenna_cl_ft": 280.0,
+    "azimuth_deg": 17.88,
+    "adjusted_latitude": 41.51402777777778,
+    "adjusted_longitude": -83.85005555555556
+  },
+  "general_parameters": {
+    "link_id": "5019037",
+    "link_name": "TO01081D_TO03614A",
+    "frequency_ghz": 11.0,
+    "path_length_mi": 5.75
+  },
+  "fresnel_parameters": {
+    "fresnel_found": true,
+    "zones": [
+      {
+        "zone": 1,
+        "enabled": true,
+        "zone_percent": 60.0,
+        "k_factor": 1.33,
+        "color": "#0000FF",
+        "color_name": "blue"
+      },
+      {
+        "zone": 2,
+        "enabled": true,
+        "zone_percent": 30.0,
+        "k_factor": 0.67,
+        "color": "#FFFF00",
+        "color_name": "yellow"
+      },
+      {
+        "zone": 3,
+        "enabled": true,
+        "zone_percent": 100.0,
+        "k_factor": 1.33,
+        "color": "#FF0000",
+        "color_name": "red"
+      }
+    ]
+  },
+  "turbines": []
+}

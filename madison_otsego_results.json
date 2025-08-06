@@ -1,0 +1,345 @@
+{
+  "success": true,
+  "message": "Found 10 matching files",
+  "items": [
+    {
+      "title": "u_4200077450_2015.las",
+      "url": "ftp://ftp.gis.ny.gov/elevation/LIDAR/NYSGPO_MadisonOtsego_2015/u_4200077450_2015.las",
+      "size": 494726028,
+      "date": "Feb 18 2017",
+      "dataset": "NYSGPO_MadisonOtsego_2015",
+      "source": "NY GIS FTP",
+      "format": "las",
+      "nySource": true,
+      "boundingBox": {
+        "minX": 77450,
+        "minY": 4200000,
+        "maxX": 78950,
+        "maxY": 4201500,
+        "crs": "EPSG:32618"
+      },
+      "corners": {
+        "southwest": [
+          37.849541846985055,
+          -79.80159375919429
+        ],
+        "northeast": [
+          37.86370745275561,
+          -79.78547636826335
+        ],
+        "center": [
+          37.856624649870334,
+          -79.79353506372883
+        ]
+      }
+    },
+    {
+      "title": "u_4200077600_2015.las",
+      "url": "ftp://ftp.gis.ny.gov/elevation/LIDAR/NYSGPO_MadisonOtsego_2015/u_4200077600_2015.las",
+      "size": 549146538,
+      "date": "Feb 18 2017",
+      "dataset": "NYSGPO_MadisonOtsego_2015",
+      "source": "NY GIS FTP",
+      "format": "las",
+      "nySource": true,
+      "boundingBox": {
+        "minX": 77600,
+        "minY": 4200000,
+        "maxX": 79100,
+        "maxY": 4201500,
+        "crs": "EPSG:32618"
+      },
+      "corners": {
+        "southwest": [
+          37.849611273804854,
+          -79.7998947529391
+        ],
+        "northeast": [
+          37.8637766688725,
+          -79.78377699665305
+        ],
+        "center": [
+          37.85669397133867,
+          -79.79183587479608
+        ]
+      }
+    },
+    {
+      "title": "u_4200077750_2015.las",
+      "url": "ftp://ftp.gis.ny.gov/elevation/LIDAR/NYSGPO_MadisonOtsego_2015/u_4200077750_2015.las",
+      "size": 445619538,
+      "date": "Feb 18 2017",
+      "dataset": "NYSGPO_MadisonOtsego_2015",
+      "source": "NY GIS FTP",
+      "format": "las",
+      "nySource": true,
+      "boundingBox": {
+        "minX": 77750,
+        "minY": 4200000,
+        "maxX": 79250,
+        "maxY": 4201500,
+        "crs": "EPSG:32618"
+      },
+      "corners": {
+        "southwest": [
+          37.849680676218554,
+          -79.7981957408494
+        ],
+        "northeast": [
+          37.86384586056899,
+          -79.78207761922442
+        ],
+        "center": [
+          37.85676326839378,
+          -79.79013668003691
+        ]
+      }
+    },
+    {
+      "title": "u_4200077900_2015.las",
+      "url": "ftp://ftp.gis.ny.gov/elevation/LIDAR/NYSGPO_MadisonOtsego_2015/u_4200077900_2015.las",
+      "size": 462833118,
+      "date": "Feb 18 2017",
+      "dataset": "NYSGPO_MadisonOtsego_2015",
+      "source": "NY GIS FTP",
+      "format": "las",
+      "nySource": true,
+      "boundingBox": {
+        "minX": 77900,
+        "minY": 4200000,
+        "maxX": 79400,
+        "maxY": 4201500,
+        "crs": "EPSG:32618"
+      },
+      "corners": {
+        "southwest": [
+          37.84975005422589,
+          -79.79649672292723
+        ],
+        "northeast": [
+          37.86391502784485,
+          -79.78037823597951
+        ],
+        "center": [
+          37.856832541035374,
+          -79.78843747945336
+        ]
+      }
+    },
+    {
+      "title": "u_4200078050_2015.las",
+      "url": "ftp://ftp.gis.ny.gov/elevation/LIDAR/NYSGPO_MadisonOtsego_2015/u_4200078050_2015.las",
+      "size": 243374028,
+      "date": "Feb 18 2017",
+      "dataset": "NYSGPO_MadisonOtsego_2015",
+      "source": "NY GIS FTP",
+      "format": "las",
+      "nySource": true,
+      "boundingBox": {
+        "minX": 78050,
+        "minY": 4200000,
+        "maxX": 79550,
+        "maxY": 4201500,
+        "crs": "EPSG:32618"
+      },
+      "corners": {
+        "southwest": [
+          37.84981940782662,
+          -79.79479769917461
+        ],
+        "northeast": [
+          37.86398417069977,
+          -79.77867884692036
+        ],
+        "center": [
+          37.8569017892632,
+          -79.78673827304749
+        ]
+      }
+    },
+    {
+      "title": "u_4215077450_2015.las",
+      "url": "ftp://ftp.gis.ny.gov/elevation/LIDAR/NYSGPO_MadisonOtsego_2015/u_4215077450_2015.las",
+      "size": 449911248,
+      "date": "Feb 18 2017",
+      "dataset": "NYSGPO_MadisonOtsego_2015",
+      "source": "NY GIS FTP",
+      "format": "las",
+      "nySource": true,
+      "boundingBox": {
+        "minX": 77450,
+        "minY": 4215000,
+        "maxX": 78950,
+        "maxY": 4216500,
+        "crs": "EPSG:32618"
+      },
+      "corners": {
+        "southwest": [
+          37.98426069250735,
+          -79.8103801391608
+        ],
+        "northeast": [
+          37.99842916576204,
+          -79.79423778773827
+        ],
+        "center": [
+          37.9913449291347,
+          -79.80230896344953
+        ]
+      }
+    },
+    {
+      "title": "u_4215077600_2015.las",
+      "url": "ftp://ftp.gis.ny.gov/elevation/LIDAR/NYSGPO_MadisonOtsego_2015/u_4215077600_2015.las",
+      "size": 496746078,
+      "date": "Feb 18 2017",
+      "dataset": "NYSGPO_MadisonOtsego_2015",
+      "source": "NY GIS FTP",
+      "format": "las",
+      "nySource": true,
+      "boundingBox": {
+        "minX": 77600,
+        "minY": 4215000,
+        "maxX": 79100,
+        "maxY": 4216500,
+        "crs": "EPSG:32618"
+      },
+      "corners": {
+        "southwest": [
+          37.984330454735506,
+          -79.80867805314561
+        ],
+        "northeast": [
+          37.99849871623415,
+          -79.79253533391488
+        ],
+        "center": [
+          37.99141458548483,
+          -79.80060669353026
+        ]
+      }
+    },
+    {
+      "title": "u_4215077750_2015.las",
+      "url": "ftp://ftp.gis.ny.gov/elevation/LIDAR/NYSGPO_MadisonOtsego_2015/u_4215077750_2015.las",
+      "size": 534273168,
+      "date": "Feb 18 2017",
+      "dataset": "NYSGPO_MadisonOtsego_2015",
+      "source": "NY GIS FTP",
+      "format": "las",
+      "nySource": true,
+      "boundingBox": {
+        "minX": 77750,
+        "minY": 4215000,
+        "maxX": 79250,
+        "maxY": 4216500,
+        "crs": "EPSG:32618"
+      },
+      "corners": {
+        "southwest": [
+          37.98440019244027,
+          -79.80697596125441
+        ],
+        "northeast": [
+          37.99856824216853,
+          -79.79083287423171
+        ],
+        "center": [
+          37.991484217304404,
+          -79.79890441774306
+        ]
+      }
+    },
+    {
+      "title": "u_4215077900_2015.las",
+      "url": "ftp://ftp.gis.ny.gov/elevation/LIDAR/NYSGPO_MadisonOtsego_2015/u_4215077900_2015.las",
+      "size": 514849788,
+      "date": "Feb 18 2017",
+      "dataset": "NYSGPO_MadisonOtsego_2015",
+      "source": "NY GIS FTP",
+      "format": "las",
+      "nySource": true,
+      "boundingBox": {
+        "minX": 77900,
+        "minY": 4215000,
+        "maxX": 79400,
+        "maxY": 4216500,
+        "crs": "EPSG:32618"
+      },
+      "corners": {
+        "southwest": [
+          37.984469905621395,
+          -79.80527386348918
+        ],
+        "northeast": [
+          37.99863774356492,
+          -79.78913040869082
+        ],
+        "center": [
+          37.991553824593154,
+          -79.79720213609
+        ]
+      }
+    },
+    {
+      "title": "u_4215078050_2015.las",
+      "url": "ftp://ftp.gis.ny.gov/elevation/LIDAR/NYSGPO_MadisonOtsego_2015/u_4215078050_2015.las",
+      "size": 158339268,
+      "date": "Feb 18 2017",
+      "dataset": "NYSGPO_MadisonOtsego_2015",
+      "source": "NY GIS FTP",
+      "format": "las",
+      "nySource": true,
+      "boundingBox": {
+        "minX": 78050,
+        "minY": 4215000,
+        "maxX": 79550,
+        "maxY": 4216500,
+        "crs": "EPSG:32618"
+      },
+      "corners": {
+        "southwest": [
+          37.984539594278615,
+          -79.80357175985199
+        ],
+        "northeast": [
+          37.99870722042305,
+          -79.78742793729424
+        ],
+        "center": [
+          37.99162340735083,
+          -79.79549984857312
+        ]
+      }
+    }
+  ],
+  "source": "NY GIS FTP",
+  "dataset": "NYSGPO_MadisonOtsego_2015",
+  "search_area": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          -79.9,
+          38.0
+        ],
+        [
+          -79.7,
+          38.0
+        ],
+        [
+          -79.7,
+          37.8
+        ],
+        [
+          -79.9,
+          37.8
+        ],
+        [
+          -79.9,
+          38.0
+        ]
+      ]
+    ]
+  }
+}

@@ -1,0 +1,101 @@
+# Core Python dependencies
+numpy>=1.20.0
+pandas>=1.3.0
+requests>=2.25.0
+scipy>=1.15.2
+
+# Geospatial dependencies
+geopandas>=0.10.0
+shapely>=1.8.0
+pyproj>=3.0.0
+rtree>=1.0.0
+gdal>=3.10.2
+# Note: On macOS M1/M2, GDAL may have architecture issues. 
+# Use the fix_gdal.sh script or install via conda-forge for ARM64 compatibility
+earthengine-api>=1.5.8
+rasterio>=1.3.0
+
+# LiDAR and Point Cloud processing
+laspy>=2.0.0
+pdal>=3.0.0
+# Note: PDAL may require system-level dependencies on some platforms
+
+# For handling shapefiles and spatial data
+fiona>=1.8.0
+
+# For KML file generation
+simplekml>=1.3.0
+
+# For XML parsing
+lxml>=4.6.0
+
+# UI and GUI dependencies
+tkinterdnd2>=0.3.0
+tkintermapview>=1.0.0
+tkcalendar>=1.6.1
+
+# PDF processing and OCR
+reportlab>=3.6.0
+PyMuPDF>=1.19.0
+pytesseract>=0.3.10
+# Note: Tesseract OCR must be installed separately on the system
+
+# Image processing
+pillow>=9.0.0
+opencv-python>=4.5.0
+
+# AI and Machine Learning
+anthropic>=0.3.0
+
+# Database dependencies
+psycopg2-binary>=2.9.0
+# Note: sqlite3 is built into Python
+
+# Web scraping and parsing
+beautifulsoup4>=4.9.0
+
+# Async operations and HTTP
+aiohttp>=3.11.14
+# Note: asyncio is built into Python 3.7+
+
+# AWS services
+boto3>=1.26.0
+
+# Visualization and plotting
+matplotlib>=3.5.0
+
+# Progress bars and logging
+tqdm>=4.62.0
+
+# Environment and configuration
+python-dotenv>=0.19.0
+folium>=0.12.0
+
+# Development and testing (optional)
+pytest>=6.0.0
+pytest-cov>=2.12.0
+
+# Additional utilities
+typing-extensions>=4.0.0  # For enhanced type hints on older Python versions
+
+# Platform-specific installation notes:
+# 
+# macOS M1/M2 (Apple Silicon):
+# - GDAL: Use conda-forge or run fix_gdal.sh script for architecture compatibility
+# - Install command: conda install -c conda-forge gdal
+# 
+# Linux:
+# - May need system packages: sudo apt-get install gdal-bin libgdal-dev
+# - For PostGIS: sudo apt-get install postgresql postgis
+# 
+# Windows:
+# - Consider using conda-forge for geospatial packages
+# - Install command: conda install -c conda-forge gdal geopandas
+#
+# Built-in Python modules (no installation needed):
+# concurrent.futures, threading, multiprocessing, queue, asyncio
+# ftplib, socket, urllib, http.server, ssl, smtplib
+# os, sys, json, logging, time, datetime, re, math, pathlib
+# tempfile, shutil, subprocess, platform, atexit, warnings
+# xml.etree.ElementTree, urllib.parse, io, base64, hashlib
+# argparse, csv, zipfile, pickle, sqlite3

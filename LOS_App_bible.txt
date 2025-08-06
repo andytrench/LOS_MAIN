@@ -1,0 +1,785 @@
+# LOS Application Documentation Bible
+# ==============================
+
+## Overview
+The LOS (Line of Sight) Application is a comprehensive tool for microwave path analysis, LIDAR data management, and obstruction analysis. This document details all major components and their functionality.
+
+## 1. File Drop and Initial Processing
+Location: order_interface.py
+Primary Class: OrderApp
+
+The application begins with the OrderApp class handling initial file processing:
+- Accepts dropped MW LOS design files
+- Parses site information, coordinates, and path details
+- Initializes the three-panel interface
+- Sets up data bindings for UI updates
+
+## 2. Map Visualization
+Location: dropmap.py
+Key Function: update_map()
+
+Core mapping functionality includes:
+- Coordinate conversion (DMS to decimal)
+- Site marker placement
+- Path drawing
+- Search polygon generation
+- Automatic map centering and zooming
+- Interactive map controls
+
+Technical Details:
+- Uses OpenStreetMap base layer
+- Supports multiple map styles
+- Implements custom marker designs
+- Handles coordinate system transformations
+
+## 3. Elevation Profile
+Location: elevation.py
+Primary Class: ElevationProfile
+
+Features:
+a) Core Functionality:
+   - Google Maps API elevation data fetching
+   - Ground profile rendering
+   - Vegetation overlay display
+   - LOS path visualization
+   - Fresnel zone calculations
+
+b) Turbine Integration:
+   - Height visualization
+   - Clearance calculations
+   - Interactive measurements
+   - Profile updates
+
+c) Technical Specifications:
+   - Earth curvature compensation
+   - Real-time profile updates
+   - Multiple visualization modes
+   - Custom scaling algorithms
+
+## 4. LIDAR Data Management [EXPANDED]
+Location: dropmap.py
+Primary Class: LidarDownloader
+
+A. Search Functionality:
+   1. USGS Database Integration:
+      - Direct connection to ScienceBase API
+      - Query construction based on polygon bounds
+      - Spatial filtering using project area
+      - Temporal filtering using date ranges
+      - Automatic pagination handling
+
+   2. Search Parameters:
+      - Date range selection (start_date, end_date)
+      - Search width configuration (500-10000 ft)
+      - Coverage area calculation
+      - Automatic boundary expansion
+      - Result count optimization
+
+   3. Result Processing:
+      - Metadata extraction from JSON/XML
+      - Coverage verification
+      - Resolution checking
+      - Format validation
+      - Size estimation
+
+B. Project-Specific File Management:
+   1. File Organization:
+      - Project-based directory structure
+      - Automatic subfolder creation
+      - File naming conventions
+      - Version control integration
+      - Temporary file handling
+
+   2. File Types:
+      - LAZ/LAS point cloud data
+      - XML metadata files
+      - JSON project configuration
+      - Coverage maps
+      - Certificate documents
+
+   3. Project Association:
+      - Project name extraction
+      - Metadata linking
+      - Path association
+      - Coverage verification
+      - Update tracking
+
+C. Download Management:
+   1. Download Queue System:
+      - Priority-based queuing
+      - Parallel download support
+      - Bandwidth management
+      - Progress tracking
+      - Status updates
+
+   2. File Verification:
+      - Checksum validation
+      - Size verification
+      - Format checking
+      - Corruption detection
+      - Recovery handling
+
+   3. Resume Capability:
+      - Partial file detection
+      - Progress storage
+      - Chunk tracking
+      - Header verification
+      - State recovery
+
+D. Metadata Tracking:
+   1. Site Information:
+      a) Site A and B Parameters:
+         - site_id: Unique identifier for each site
+         - latitude: Site latitude in DMS format (DD-MM-SS.SSS N/S)
+         - longitude: Site longitude in DMS format (DD-MM-SS.SSS E/W)
+         - elevation_ft: Ground elevation in feet
+         - antenna_cl_ft: Antenna centerline height in feet
+         - azimuth_deg: Azimuth angle in degrees
+
+      b) General Parameters:
+         - frequency_ghz: Operating frequency in GHz
+         - path_length_mi: Path length in miles
+
+   2. LIDAR Project Metadata:
+      a) Project Identification:
+         - name: Project identifier
+         - title: Full project title
+         - source_id: USGS source identifier
+         - inventory_id: Unique inventory identifier
+
+      b) URLs and Resources:
+         - download_url: Direct LAZ file download link
+         - metadata_urls:
+           * json_url: ScienceBase JSON metadata
+           * xml_url: Original XML metadata
+           * meta_url: ScienceBase catalog page
+         - additional_urls:
+           * browse_image: Preview image URL
+           * las_specifications: Format specifications
+           * metadata_link_1: Additional metadata resources
+
+      c) Geographic Information:
+         - bounds:
+           * minX/maxX: Longitude bounds
+           * minY/maxY: Latitude bounds
+         - center_coordinates:
+           * latitude: Center point latitude
+           * longitude: Center point longitude
+         - state: State abbreviation
+         - region: Geographic region
+         - place_keywords: Location identifiers
+
+      d) Coordinate System Details:
+         - name: Coordinate system name
+         - type: System type (e.g., UTM)
+         - epsg_code: EPSG reference code
+         - units: Measurement units
+         - parameters:
+           * zone: UTM zone number
+           * hemisphere: North/South indicator
+           * scale_factor: Map projection scale
+           * central_meridian: Central meridian longitude
+           * latitude_of_origin: Reference latitude
+           * false_easting: Easting offset
+           * false_northing: Northing offset
+
+      e) Datum Information:
+         - horizontal_datum: Horizontal reference system
+         - vertical_datum: Vertical reference system
+         - ellipsoid: Reference ellipsoid
+
+      f) Vertical Specifications:
+         - units: Height measurement units
+         - resolution: Vertical resolution
+
+      g) Quality Metrics:
+         - vertical_accuracy: Elevation accuracy
+         - logical_consistency: Data consistency notes
+         - completeness: Coverage completeness details
+
+      h) Format Details:
+         - version: LAZ/LAS version
+         - name: File format
+         - size_mb: File size in megabytes
+         - size_bytes: File size in bytes
+
+      i) Temporal Information:
+         - dates:
+           * Start: Collection start date
+           * End: Collection end date
+           * Publication: Release date
+         - metadata_updated: Last metadata update timestamp
+
+   3. Storage and Updates:
+      - Atomic file operations
+      - JSON structure validation
+      - Backup creation
+      - Version control
+      - Change tracking
+      - Error handling
+      - Data integrity checks
+
+   4. Turbine Data:
+      - Array of detected turbines
+      - Individual turbine specifications
+      - Location coordinates
+      - Height information
+      - Clearance calculations
+      - Risk assessments
+
+## 5. Turbine Detection and Analysis [EXPANDED]
+Location: dropmap.py
+
+A. Search Mechanisms:
+   1. Local Search (find_turbines):
+      - Polygon-based area scanning using bounding box with 0.2-degree padding
+      - API integration with USGS Wind Turbine Database (USWTDB)
+      - Spatial filtering using point-in-polygon algorithm
+      - Automatic state detection for fallback searches
+      - Comprehensive error handling with multiple fallback strategies
+      - Query construction with precise geographic parameters:
+        ```python
+        params = {
+            "select": "*",
+            "and": f"(ylat.gte.{min_lat},ylat.lte.{max_lat},xlong.gte.{min_lon},xlong.lte.{max_lon})"
+        }
+        ```
+
+   2. State-wide Search (find_state_turbines):
+      - Boundary determination using predefined state coordinates
+      - Multi-endpoint API strategy with primary and backup servers:
+        * Primary: https://eersc.usgs.gov/api/uswtdb/v1/turbines
+        * Backup: https://eerscmap.usgs.gov/uswtdb/api/v1/turbines
+        * Tertiary: https://eerscmap.cr.usgs.gov/api/v1/turbines
+      - Automatic state detection from path center point
+      - Comprehensive state boundary definitions for WY, CO, NE, SD, MT
+      - Automatic map repositioning to show entire state
+      - Extended timeout handling (30 seconds) for large datasets
+
+B. Turbine Data Management:
+   1. Data Collection:
+      - Complete turbine attribute capture from USWTDB
+      - Standardized data transformation for internal use
+      - Persistent storage in tower_parameters.json
+      - Automatic data validation and error handling
+      - Comprehensive logging of all turbine properties
+
+   2. Turbine Metadata Structure:
+      - Core identification:
+        * id: Unique turbine identifier (case_id from USWTDB)
+        * latitude/longitude: Precise coordinates (ylat/xlong)
+        * project_name: Associated wind farm project (p_name)
+      
+      - Physical specifications:
+        * total_height_m: Total height including blades (t_ttlh)
+        * hub_height_m: Height to hub center (t_hh)
+        * rotor_diameter_m: Diameter of blade sweep (t_rd)
+        * rotor_swept_area_m2: Area covered by blades (t_rsa)
+      
+      - Technical details:
+        * capacity_kw: Power generation capacity (t_cap)
+        * manufacturer: Turbine manufacturer (t_manu)
+        * model: Specific turbine model (t_model)
+        * year_online: Year of commissioning (p_year)
+      
+      - Location information:
+        * state: State abbreviation (t_state)
+        * county: County name (t_county)
+      
+      - Data quality indicators:
+        * location_confidence: Confidence in location data (t_conf_loc)
+        * attribute_confidence: Confidence in attribute data (t_conf_attr)
+
+   3. Obstruction Analysis (_update_obstruction_info):
+      - Path proximity calculations using haversine formula
+      - Identification of closest turbine to path
+      - Distance calculations in meters, feet, and miles
+      - Clearance calculations with earth curvature compensation
+      - Fresnel zone interference assessment
+      - Real-time updates to obstruction information display
+
+C. Visualization Systems:
+   1. Map Visualization (_add_turbine_visualization):
+      - Blade sweep circle generation with geographic correction:
+        ```python
+        radius_meters = rotor_diameter / 2
+        lat_correction = math.cos(math.radians(turbine['ylat']))
+        radius_lat = radius_meters / 111111
+        radius_lon = radius_meters / (111111 * lat_correction)
+        ```
+      - Custom polygon creation for rotor sweep area
+      - Interactive marker placement with turbine ID labels
+      - Custom icon support with PIL integration
+      - Detailed tooltip creation with comprehensive turbine data
+      - Right-click menu integration for additional information
+      - Visibility toggle system with label control
+
+   2. Elevation Profile Integration:
+      - Automatic turbine data transfer to elevation profile
+      - Profile refresh with turbine data (refresh_with_turbines)
+      - Turbine height integration in elevation calculations
+      - Ground elevation determination at turbine positions
+      - Vertical scale adjustment to accommodate turbine heights
+      - Comprehensive error handling and logging
+
+   3. Profile View Rendering (_draw_profile_with_vegetation):
+      - Turbine tower visualization as vertical lines
+      - Rotor visualization as ellipses with proper scaling
+      - Accurate positioning along path using distance calculations
+      - Distance from path labeling with precise measurements
+      - Turbine ID labeling with consistent formatting
+      - Color-coded visualization for easy identification
+      - Automatic scaling to maintain proportions
+
+   4. Perpendicular Path View (generate_site_to_site_profile):
+      - Matplotlib integration for high-quality visualization
+      - Side-view perspective of turbines relative to path
+      - Horizontal compression for better visualization
+      - Accurate distance representation from path centerline
+      - Turbine tower and rotor visualization with proper scaling
+      - Color-coded turbines for easy differentiation
+      - Comprehensive labeling with distances and heights
+      - Export capability for documentation
+
+D. Certificate Generation (export_turbine_certificate):
+   1. Data Compilation:
+      - Path information extraction (length, coordinates)
+      - Comprehensive turbine data collection
+      - Distance calculations with multiple units (m, ft, miles)
+      - Clearance calculations with multiple methodologies:
+        * Straight-line clearance
+        * Earth-curvature adjusted clearance
+        * Fresnel-zone adjusted clearance
+
+   2. PDF Generation:
+      - Professional certificate formatting
+      - Map visualization inclusion
+      - Tabular data presentation
+      - Clearance visualization
+      - Methodology documentation
+      - Risk assessment summary
+      - Compliance information
+
+   3. Analysis Components:
+      - Distance-to-path calculations using perpendicular projection
+      - Height assessment relative to path
+      - Fresnel zone interference analysis
+      - Earth curvature compensation
+      - Multiple clearance methodologies
+      - Risk categorization based on proximity and height
+
+E. User Interface Integration:
+   1. Control Elements:
+      - Search Turbines button (find_turbines)
+      - Search State Turbines button (find_state_turbines)
+      - Export Obstruction Certificate button (export_turbine_certificate)
+      - Toggle Labels button for marker visibility control
+      - Clear Turbines function for display reset
+
+   2. Information Display:
+      - Obstruction information text display
+      - Closest turbine details with distance and specifications
+      - Interactive map markers with custom styling
+      - Profile view with integrated turbine visualization
+      - Comprehensive logging for troubleshooting
+
+   3. Interaction Flow:
+      - Path definition → Turbine search → Visualization → Analysis → Certificate generation
+      - Automatic data transfer between map and profile views
+      - Seamless integration with elevation profile
+      - Consistent data representation across all views
+
+## 6. Certificate Generation
+Location: elevation.py
+Function: export_distance_certificate()
+
+Capabilities:
+- PDF report generation
+- Methodology documentation
+- Visual representations
+- Technical specifications
+- Clearance calculations
+- Professional formatting
+
+## 7. Elevation Profile Features
+Location: elevation.py
+Key Function: generate_site_to_site_profile()
+
+Features:
+- Perpendicular path view
+- Relative positioning
+- Earth curvature integration
+- Fresnel zone analysis
+- Interactive measurements
+- Custom scaling
+- Multiple view modes
+
+## 8. Data Management
+Primary File: tower_parameters.json
+
+Structure:
+- Site information
+- LIDAR metadata
+- Turbine locations
+- Project configuration
+- Path parameters
+- System settings
+
+Data Handling:
+- Atomic updates
+- Backup management
+- Version control
+- Data validation
+- Error recovery
+
+## 9. UI Components
+Layout Structure:
+A. Left Column:
+   - Map display
+   - Elevation profile
+   - Control buttons
+   - Status indicators
+
+B. Center Column:
+   - LIDAR search interface
+   - Download controls
+   - Progress indicators
+   - Filter options
+
+C. Right Column:
+   - File list
+   - Download status
+   - Metadata display
+   - Control panels
+
+## 10. Helper Functions
+Location: Various Files
+
+Key Utilities:
+- calculate_distance(): Great circle calculations
+- convert_dms_to_decimal(): Coordinate conversion
+- calculate_polygon_points(): Search area generation
+- _calculate_perpendicular_distance(): Obstruction analysis
+- _interpolate(): Path point generation
+- format_speed(): Download rate formatting
+- format_eta(): Time estimation
+
+## 11. Error Handling
+System-wide Implementation:
+
+A. Logging:
+   - Comprehensive event tracking
+   - Error documentation
+   - Debug information
+   - Performance metrics
+
+B. User Feedback:
+   - Error messages
+   - Status updates
+   - Progress indicators
+   - Warning systems
+
+C. Recovery:
+   - Automatic retry mechanisms
+   - Data validation
+   - State recovery
+   - Backup systems
+
+## 12. Export Capabilities
+Supported Formats:
+
+A. KML:
+   - Path visualization
+   - Site markers
+   - Coverage areas
+   - Turbine locations
+
+B. Shapefiles:
+   - GIS integration
+   - Spatial analysis
+   - Coverage mapping
+   - Obstruction marking
+
+C. Poly Files:
+   - Search areas
+   - Coverage zones
+   - Analysis regions
+
+D. PDF Reports:
+   - Technical certificates
+   - Analysis reports
+   - Visual documentation
+   - Measurement records
+
+## Technical Requirements
+- Python 3.7+
+- tkinter with ttk
+- Requests library
+- NumPy/Matplotlib
+- GDAL/OGR
+- Google Maps API key
+- Internet connectivity
+- Sufficient disk space
+
+## Best Practices [EXPANDED]
+1. LIDAR Data Management:
+   - Regular metadata updates
+   - Systematic file organization
+   - Proper version control
+   - Efficient storage management
+   - Regular backup procedures
+
+2. Turbine Analysis:
+   - Regular database updates
+   - Comprehensive measurements
+   - Multiple verification steps
+   - Detailed documentation
+   - Quality control checks
+
+3. Report Generation:
+   - Standardized formats
+   - Complete documentation
+   - Visual clarity
+   - Data verification
+   - Professional presentation
+
+## Known Limitations [EXPANDED]
+1. LIDAR Processing:
+   - File size constraints
+   - Processing time
+   - Storage requirements
+   - Format compatibility
+   - Resolution limitations
+
+2. Turbine Analysis:
+   - Database coverage
+   - Update frequency
+   - Measurement accuracy
+   - Weather impact
+   - Seasonal variations
+
+3. Reporting System:
+   - Template limitations
+   - Export options
+   - Visual customization
+   - Data presentation
+   - Format restrictions
+
+## Future Enhancements
+1. Additional data sources
+2. Enhanced visualization
+3. Automated analysis
+4. Batch processing
+5. Cloud integration
+6. Mobile support
+
+## Support and Maintenance
+- Regular updates
+- Bug tracking
+- Feature requests
+- User support
+- Documentation updates
+- Performance monitoring
+
+## Version History
+Current Version: 1.0
+- Initial release with core functionality
+- Comprehensive LIDAR support
+- Full turbine analysis
+- Complete documentation
+
+## Contact Information
+For technical support and inquiries:
+[Contact Information Here]
+
+## Implementation Details [NEW]
+
+A. LIDAR Processing:
+   1. File Handling:
+      ```python
+      def process_lidar_file(file_path):
+          # Check file type and size
+          # Extract metadata
+          # Validate format
+          # Update database
+          # Return processing status
+      ```
+
+   2. Download Management:
+      ```python
+      def download_file(url, destination):
+          # Initialize chunks
+          # Set up progress tracking
+          # Handle resume capability
+          # Verify download
+          # Update metadata
+      ```
+
+B. Turbine Analysis:
+   1. Search Implementation:
+      ```python
+      def find_turbines_in_area(bounds):
+          # Define search parameters
+          # Query database
+          # Filter results
+          # Calculate distances
+          # Return findings
+      ```
+
+   2. Clearance Calculation:
+      ```python
+      def calculate_clearance(turbine, path):
+          # Get turbine parameters
+          # Calculate distances
+          # Determine clearances
+          # Assess risks
+          # Generate report
+      ```
+
+C. Report Generation:
+   1. Certificate Creation:
+      ```python
+      def generate_certificate(project_data):
+          # Compile information
+          # Create PDF
+          # Add visualizations
+          # Include measurements
+          # Save and verify
+      ```
+
+   2. Data Export:
+      ```python
+      def export_data(format_type):
+          # Prepare data
+          # Format conversion
+          # Validation
+          # File creation
+          # Return status
+      ```
+
+## 13. Google Earth Engine Integration [NEW]
+Location: map_view.html
+
+A. Authentication and Setup:
+   1. Project Configuration:
+      - Earth Engine project ID: "ee-lostool"
+      - API Key integration with appropriate permissions
+      - OAuth 2.0 authentication flow
+      - Project registration with commercial Earth Engine access
+      - Credential management and security
+
+   2. Authentication Process:
+      - Initialization through ee.Initialize()
+      - Project configuration in ~/.config/earthengine/credentials
+      - Token management and renewal
+      - Error handling for authentication failures
+      - Permissions verification
+
+B. Satellite Imagery Integration:
+   1. Available Datasets:
+      - Sentinel-2 (COPERNICUS/S2_SR): High-resolution, frequent updates
+      - Landsat 8/9 (LANDSAT/LC08/C02/T1_L2): Medium-resolution, consistent historical data
+      - NAIP (USDA/NAIP/DOQQ): Very high-resolution, US-only coverage
+      - Custom visualization parameters for each dataset
+
+   2. Image Processing:
+      - Band selection for natural color visualization (RGB)
+      - Appropriate min/max values for visualization
+      - Gamma correction for visual clarity
+      - Cloud filtering and coverage assessment
+      - Temporal filtering for recent imagery
+
+   3. Tile URL Generation:
+      - Authentication-enabled URL generation
+      - MapID acquisition from Earth Engine
+      - Tile coordinate system integration
+      - URL templating with {z}/{x}/{y} parameters
+      - Token inclusion for secured access
+
+C. Implementation Details:
+   1. Layer Selection Interface:
+      ```html
+      <select id="layer-select">
+          <option value="hybrid">Google Hybrid</option>
+          <option value="satellite">Google Satellite</option>
+          <option value="terrain">Google Terrain</option>
+          <option value="roadmap">Google Road Map</option>
+          <option value="sentinel">Sentinel-2 (Google Earth Engine)</option>
+          <option value="landsat">Landsat 8/9 (Google Earth Engine)</option>
+          <option value="naip">NAIP (US Only - Earth Engine)</option>
+      </select>
+      ```
+
+   2. Layer Configuration:
+      ```javascript
+      case 'sentinel':
+          imageryDate = "2025-02-21";  // Example date, changes with data source
+          imageryType = "Sentinel-2";
+          overlayColor = '#3388ff';  // Blue tint for Sentinel
+          saturationValue = 10;
+          hueValue = "#1E66FF";
+          
+          // Earth Engine authenticated URL for tiles
+          tileUrl = "https://earthengine.googleapis.com/v1/projects/ee-lostool/maps/[mapid]/tiles/{z}/{x}/{y}";
+          break;
+      ```
+
+   3. Image Acquisition Automation:
+      - Python script for generating authenticated URLs
+      - Date range filtering for recent imagery
+      - Geographic filtering for project area
+      - Cloud coverage minimization
+      - Automatic visual parameter optimization
+
+D. Production Deployment Strategy:
+   1. Backend Service:
+      - Dedicated microservice for Earth Engine authentication
+      - Periodic URL refresh (every 1-7 days before expiration)
+      - URL caching and distribution
+      - Failure recovery and fallback imagery
+      - Load balancing for high-demand scenarios
+
+   2. Security Considerations:
+      - API key and token protection
+      - Backend-only authentication
+      - Request validation and rate limiting
+      - URL expiration handling
+      - Access control and logging
+
+   3. Performance Optimization:
+      - Tile caching strategies
+      - Parallel request handling
+      - Progressive loading implementation
+      - Appropriate zoom level constraints
+      - Geographic restriction to minimize data transfer
+
+E. Known Limitations:
+   1. URL Expiration:
+      - Earth Engine tile URLs expire after 1-7 days
+      - Requires periodic regeneration
+      - Backend service recommended for production
+
+   2. Dataset Constraints:
+      - Sentinel-2 SR collection (COPERNICUS/S2_SR) marked as deprecated
+      - NAIP data limited to United States only
+      - Historical data quality varies by region
+      - Cloud coverage affects image quality
+      - Temporal resolution varies by dataset
+
+   3. Usage Limits:
+      - Earth Engine quota restrictions
+      - API rate limiting
+      - Processing limitations for large areas
+      - Resolution constraints at different zoom levels
+      - Commercial usage requires paid account
+
+F. Future Enhancements:
+   - Integration of additional Earth Engine datasets
+   - Custom band combination options
+   - Time series visualization
+   - Automated cloud-free mosaic generation
+   - Advanced filtering options
+   - Image analysis and vegetation indices
+
+---
+End of Documentation 

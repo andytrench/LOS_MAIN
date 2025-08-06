@@ -1,0 +1,19 @@
+{
+    "site_A": {
+        "site_id": "4RV0049A",
+        "latitude": "42-52-29.1 N",
+        "longitude": "73-03-58.2 W",
+        "elevation_ft": 2732.94,
+        "antenna_cl_ft": 116.0,
+        "azimuth_deg": 265.22
+    },
+    "site_B": {
+        "site_id": "4RV0063A",
+        "latitude": "42-51-51.8 N",
+        "longitude": "73-13-58.8 W",
+        "elevation_ft": 2303.15,
+        "antenna_cl_ft": 76.0,
+        "azimuth_deg": 85.11
+    },
+    "last_updated": "2024-11-14T14:09:04.284428"
+}

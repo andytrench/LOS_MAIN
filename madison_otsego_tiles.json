@@ -1,0 +1,29 @@
+{
+  "success": true,
+  "message": "Found 0 matching files",
+  "items": [],
+  "source": "NY GIS FTP",
+  "dataset": "NYSGPO_MadisonOtsego_2015",
+  "polygon": [
+    [
+      42.8,
+      -75.3
+    ],
+    [
+      42.8,
+      -75.1
+    ],
+    [
+      42.6,
+      -75.1
+    ],
+    [
+      42.6,
+      -75.3
+    ],
+    [
+      42.8,
+      -75.3
+    ]
+  ]
+}
