@@ -58,6 +58,7 @@ initialize_logging()
 from utilities.coordinates import calculate_distance, calculate_distance_meters
 from utilities.metadata import ProjectMetadata, get_project_name
 from utilities.site_manager import update_json_file, open_manual_sites, edit_sites, load_site_data
+from utilities.file_handler import reset_json_file_for_new_project
 from utilities.map_manager import MapController
 from utilities.pdf_utils import create_certificate, create_json_certificate, add_section_header, add_field
 import utilities.pdf_utils as certificates
@@ -96,6 +97,96 @@ polygon_points = None
 load_dotenv()
 
 # update_json_file function moved to utilities/site_manager.py
+
+def import_tower_parameters_json():
+    """Import data from an existing tower_parameters.json file"""
+    try:
+        # Open file dialog to select tower_parameters.json file
+        from tkinter import filedialog
+        
+        file_path = filedialog.askopenfilename(
+            title="Select tower_parameters.json file",
+            filetypes=[("JSON files", "*.json"), ("All files", "*.*")],
+            initialdir="."
+        )
+        
+        if not file_path:
+            logger.info("User cancelled JSON import")
+            return
+            
+        logger.info(f"Importing tower parameters from: {file_path}")
+        
+        # Load the JSON data
+        import json
+        with open(file_path, 'r') as f:
+            imported_data = json.load(f)
+        
+        # Validate that it has the required structure
+        if not all(key in imported_data for key in ['site_A', 'site_B', 'general_parameters']):
+            messagebox.showerror("Invalid File", 
+                               "The selected file does not appear to be a valid tower_parameters.json file.\n"
+                               "Required sections: site_A, site_B, general_parameters")
+            return
+            
+        # Reset the project JSON file to ensure a clean state
+        if not reset_json_file_for_new_project():
+            logger.warning("Failed to reset JSON file, but proceeding.")
+
+        # Clear existing LIDAR data and turbines from the map
+        if 'lidar_downloader' in globals() and lidar_downloader:
+            logger.info("Clearing existing data before importing new file.")
+            lidar_downloader.clear_all_data()
+        
+        # Update the main JSON file with the imported data
+        if not update_json_file(imported_data):
+            messagebox.showerror("Import Failed", "Failed to update the project's main JSON file with the imported data.")
+            return
+
+        logger.info("Successfully imported tower parameters. Updating application.")
+        
+        # Update the application's UI with the imported data (same as AI workflow)
+        update_details_in_app(imported_data)
+
+        # Automatically check for turbines in the default search area (same as AI workflow)
+        logger.info("JSON import complete. Checking for turbines in default search area...")
+        
+        try:
+            if 'lidar_downloader' in globals() and lidar_downloader:
+                # Run automatic turbine search to alert user if turbines are found
+                turbines_found = lidar_downloader.find_turbines()
+                
+                if turbines_found and len(turbines_found) > 0:
+                    turbine_count = len(turbines_found)
+                    search_width = lidar_downloader.polygon_width_ft.get() if hasattr(lidar_downloader, 'polygon_width_ft') else 2000
+                    
+                    # Show alert about found turbines
+                    alert_message = (
+                        f"🚨 TURBINES DETECTED!\n\n"
+                        f"Found {turbine_count} wind turbine{'s' if turbine_count != 1 else ''} "
+                        f"within ±{search_width}ft of your path.\n\n"
+                        f"⚠️  These may require clearance analysis.\n\n"
+                        f"The turbines are now displayed on the map and elevation profile. "
+                        f"Use 'Search Towers' to find additional obstructions if needed."
+                    )
+                    
+                    # Use a warning messagebox to make it prominent
+                    messagebox.showwarning("Turbines Found in Path Area", alert_message)
+                    logger.info(f"Automatic turbine search found {turbine_count} turbines - user alerted")
+                else:
+                    logger.info("No turbines found in automatic search")
+        except Exception as turbine_error:
+            logger.error(f"Error during automatic turbine search: {turbine_error}")
+            # Don't show error to user since the main import was successful
+                    
+        logger.info("Tower parameters JSON import completed successfully")
+        
+    except FileNotFoundError:
+        messagebox.showerror("File Not Found", f"Could not find the selected file: {file_path}")
+    except json.JSONDecodeError as e:
+        messagebox.showerror("Invalid JSON", f"The selected file is not valid JSON:\n{str(e)}")
+    except Exception as e:
+        logger.error(f"Error importing tower parameters JSON: {str(e)}", exc_info=True)
+        messagebox.showerror("Import Error", f"An error occurred while importing the JSON file:\n{str(e)}")
 
 def update_details_in_app(extracted_data):
     """Update the application with extracted data"""
@@ -5669,6 +5760,13 @@ map_frame.pack(fill="both", expand=True, padx=10, pady=5)
 map_header_frame = ttk.Frame(map_frame)
 map_header_frame.pack(fill="x", padx=5, pady=2)
 
+# Add "Import JSON" button in the header
+ttk.Button(
+    map_header_frame,
+    text="Import JSON",
+    command=import_tower_parameters_json
+).pack(side="right", padx=5)
+
 # Add "Edit Sites" button in the header (renamed from "Manual Sites")
 ttk.Button(
     map_header_frame,
@@ -5924,6 +6022,8 @@ file_menu = tk.Menu(menu_bar, tearoff=0)
 menu_bar.add_cascade(label="File", menu=file_menu)
 
 # Add menu items
+file_menu.add_command(label="Import JSON", command=import_tower_parameters_json)
+file_menu.add_separator()
 file_menu.add_command(label="Clear Data", command=clear_data)
 file_menu.add_command(label="Export KML", command=export_kml)
 file_menu.add_command(label="Export Shapefile", command=export_shapefile)
